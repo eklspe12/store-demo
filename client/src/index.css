@@ -10,3 +10,8 @@
 	flex-wrap: wrap;
 	gap: 16px;
 }
+
+.productImage {
+	width: 20;
+	height: 250;
+}

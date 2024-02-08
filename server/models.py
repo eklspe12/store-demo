@@ -26,7 +26,7 @@ class Product(db.Model, SerializerMixin):
     
     @validates('description')
     def validate_description(self, key, description):
-        if not description or len(description) < 15:
+        if not description or len(description) < 3:
             raise ValueError('Product must have a description over 15 characters long.')
         return description
     

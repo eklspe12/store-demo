@@ -30,23 +30,24 @@ class Products(Resource):
     
 
     # Could be the problem
-    # def post(self):
-    #     fields = request.get_json()
-    #     print('Received data:', fields)
+    def post(self):
+        fields = request.get_json()
+        print('Received data:', fields)
 
-    #     try:
-    #         product = Product(
-    #             name=fields['name'], 
-    #             description=fields['description'], 
-    #             image=fields['image'],
-    #             price=fields['price'],
-    #         )
-    #         db.session.add(product)
-    #         db.session.commit()
-    #         return make_response(product.to_dict(), 201)
-    #     except ValueError as e:
-    #         return make_response({'error':e.__str__()}, 400)
+        try:
+            product = Product(
+                name=fields['name'], 
+                description=fields['description'], 
+                image=fields['image'],
+                price=fields['price'],
+            )
+            db.session.add(product)
+            db.session.commit()
+            return make_response(product.to_dict(), 201)
+        except ValueError as e:
+            return make_response({'error':e.__str__()}, 400)
 
+api.add_resource(Products, '/products')
 
 class ProductById(Resource):
     def get(self, id):
@@ -79,7 +80,6 @@ class ProductById(Resource):
 
 api.add_resource(ProductById, '/products/<int:id>')
 
-api.add_resource(Products, '/products')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

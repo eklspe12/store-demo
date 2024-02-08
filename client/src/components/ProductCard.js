@@ -12,6 +12,20 @@ import * as Yup from 'yup';
 
 const ProductCard = ({ product, onDelete, updateProduct }) => {
 	const [isFlipped, setIsFlipped] = useState(false);
+	const [formData, setFormData] = useState({
+		name: product.name,
+		image: product.image,
+		description: product.description,
+		price: product.price,
+	});
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setFormData({
+			...formData,
+			[name]: value,
+		});
+	};
 
 	const handleClick = () => {
 		setIsFlipped(!isFlipped);
@@ -25,6 +39,33 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 			.typeError('Price must be a number')
 			.required('Price is required'),
 	});
+
+	const handleSubmit = (values, setSubmitting) => {
+		fetch(`/products/${product.id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(values),
+		})
+			.then((response) => {
+				if (response.status === 202) {
+					return response.json();
+				} else {
+					throw new Error('Error updating product');
+				}
+			})
+			.then((updatedProduct) => {
+				updateProduct(updatedProduct);
+				setIsFlipped(false);
+			})
+			.catch((error) => {
+				console.error('Network error:', error);
+			})
+			.finally(() => {
+				setSubmitting(false);
+			});
+	};
 
 	const deleteProduct = () => {
 		fetch(`/products/${product.id}`, {
@@ -47,39 +88,22 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 		<Box
 			className={isFlipped ? 'cardback' : 'productCard'}
 			mx="auto"
-			// w="20vw"
 			display="flex"
 			flexDirection="column"
-			height="600px" // Adjust this property
-			width="300px" // Adjust this property
-			flex="1 1 0"
+			height="450px"
+			width="250px"
 		>
 			{isFlipped ? (
 				<Formik
-					initialValues={product}
+					initialValues={{
+						name: product ? product.name : '',
+						image: product ? product.image : '',
+						description: product ? product.description : '',
+						price: product ? product.price : '',
+					}}
 					validationSchema={validationSchema}
 					onSubmit={(values, { setSubmitting }) => {
-						fetch(`/products/${product.id}`, {
-							method: 'PATCH',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify(values),
-						})
-							.then((r) => {
-								if (r.status === 202) {
-									return r.json().then((p) => {
-										updateProduct(p);
-										setIsFlipped(!isFlipped);
-									});
-								}
-							})
-							.catch((error) => {
-								console.error('Network error:', error);
-							})
-							.finally(() => {
-								setSubmitting(false);
-							});
+						handleSubmit(formData, setSubmitting);
 					}}
 				>
 					{({ errors, touched }) => (
@@ -87,27 +111,51 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 							<Text as="h3">Edit Product</Text>
 							<FormControl>
 								<FormLabel>Name</FormLabel>
-								<Input type="text" name="name" />
-								<ErrorMessage name="name" component="div" className="error" />
+								<Input
+									type="text"
+									name="name"
+									value={formData.name}
+									onChange={handleChange}
+								/>
+								{errors.name && touched.name && (
+									<div className="error">{errors.name}</div>
+								)}
 							</FormControl>
 							<FormControl>
 								<FormLabel>Image URL</FormLabel>
-								<Input type="text" name="image" />
-								<ErrorMessage name="image" component="div" className="error" />
-							</FormControl>
-							<FormControl>
-								<FormLabel>Description</FormLabel>
-								<Input type="text" name="description" />
-								<ErrorMessage
-									name="description"
-									component="div"
-									className="error"
+								<Input
+									type="text"
+									name="image"
+									value={formData.image}
+									onChange={handleChange}
 								/>
+								{errors.image && touched.image && (
+									<div className="error">{errors.image}</div>
+								)}
 							</FormControl>
 							<FormControl>
 								<FormLabel>Price</FormLabel>
-								<Input type="text" name="price" />
-								<ErrorMessage name="price" component="div" className="error" />
+								<Input
+									type="text"
+									name="price"
+									value={formData.price}
+									onChange={handleChange}
+								/>
+								{errors.price && touched.price && (
+									<div className="error">{errors.price}</div>
+								)}
+							</FormControl>
+							<FormControl>
+								<FormLabel>Description</FormLabel>
+								<Input
+									type="text"
+									name="description"
+									value={formData.description}
+									onChange={handleChange}
+								/>
+								{errors.description && touched.description && (
+									<div className="error">{errors.description}</div>
+								)}
 							</FormControl>
 							<Button className="saveBtn" type="submit">
 								Save
@@ -122,23 +170,52 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 					)}
 				</Formik>
 			) : (
-				<Box className="productCard">
-					<Text as="h2">{product.name}</Text>
-					<Text as="h3">
-						<img src={product.image} alt={product.name} />
+				<Box
+					className="productCard"
+					display="flex"
+					flexDirection="column"
+					justifyContent="space-between"
+					height="100%"
+				>
+					<Text as="h2" fontSize={'24px'} fontWeight={'bold'}>
+						{product.name}
+					</Text>
+					<Text as="h3" textAlign={'center'}>
+						<img
+							src={product.image}
+							alt={product.name}
+							style={{ width: '180px', height: '200px', margin: 'auto' }}
+						/>
+					</Text>
+					<Text as="h3" fontSize={'22px'} color={'black'}>
+						${product.price}
 					</Text>
 					<Text as="h4">{product.description}</Text>
-					<Text as="h3">${product.price}</Text>
+
 					<Box
 						mt="auto"
-						display="flex"
-						justifyContent={'space-between'}
-						alignItems={'flex-end'}
+						margin={'auto'}
+
+						// display="flex"
+						// justifyContent={'space-between'}
+						// alignItems={'flex-end'}
 					>
-						<Button className="editBtn" onClick={handleClick} w="8vw">
+						<Button
+							className="editBtn"
+							onClick={handleClick}
+							w="80px"
+							marginLeft={'4px'}
+							marginRight={'4px'}
+						>
 							Edit
 						</Button>
-						<Button className="deleteBtn" onClick={deleteProduct} w="8vw">
+						<Button
+							className="deleteBtn"
+							onClick={deleteProduct}
+							w="80px"
+							marginLeft={'4px'}
+							marginRight={'4px'}
+						>
 							Delete.
 						</Button>
 					</Box>
