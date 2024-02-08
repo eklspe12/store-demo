@@ -43,7 +43,9 @@ const AddProductForm = ({
 			}
 			const newProduct = await response.json();
 			onAddProduct(newProduct);
-			setFilteredProducts([...filteredProducts, newProduct]);
+			if (Array.isArray(filteredProducts)) {
+				setFilteredProducts([...filteredProducts, newProduct]);
+			}
 			setFormData({ name: '', description: '', image: '', price: '' });
 		} catch (error) {
 			console.error('Error adding product:', error);

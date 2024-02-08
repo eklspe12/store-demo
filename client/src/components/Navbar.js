@@ -9,7 +9,7 @@ const NavBar = () => {
 			<Tabs>
 				<TabList>
 					<Tab>Home</Tab>
-					<Tab>Location Finder</Tab>
+					<Tab>Manage Inventory</Tab>
 					<Tab>View/Modify Products</Tab>
 				</TabList>
 				<TabPanels>

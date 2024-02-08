@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Box, Text, VStack } from '@chakra-ui/react';
 
-const SearchBar = ({ onSearch }) => {
+const ProductSearchBar = ({ onSearch }) => {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const handleChange = (e) => {
@@ -24,4 +24,4 @@ const SearchBar = ({ onSearch }) => {
 	);
 };
 
-export default SearchBar;
+export default ProductSearchBar;

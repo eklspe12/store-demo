@@ -2,7 +2,7 @@ import ProductList from './ProductList';
 import { useState, useEffect } from 'react';
 import { Box } from '@chakra-ui/react';
 import AddProductForm from './AddProduct';
-import SearchBar from './SearchBar';
+import ProductSearchBar from './ProductSearchBar';
 
 const Store = () => {
 	const [products, setProducts] = useState([]);
@@ -12,10 +12,12 @@ const Store = () => {
 	function handleDelete(productToDelete) {
 		const updatedProducts = products.filter((p) => p.id !== productToDelete.id);
 		setProducts(updatedProducts);
+		setFilteredProducts(updatedProducts);
 	}
 
 	const AddProduct = (newProduct) => {
 		setProducts([...products, newProduct]);
+		setFilteredProducts([...filteredProducts, newProduct]);
 		setShowForm(false);
 	};
 
@@ -62,7 +64,7 @@ const Store = () => {
 				showForm={showForm}
 				setShowForm={setShowForm}
 			/>
-			<SearchBar onSearch={handleSearch} />
+			<ProductSearchBar onSearch={handleSearch} />
 			<ProductList
 				products={filteredProducts}
 				updateProduct={updateProduct}

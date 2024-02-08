@@ -29,7 +29,6 @@ class Products(Resource):
         return make_response(products, 200)
     
 
-    # Could be the problem
     def post(self):
         fields = request.get_json()
         print('Received data:', fields)
@@ -79,6 +78,53 @@ class ProductById(Resource):
 
 
 api.add_resource(ProductById, '/products/<int:id>')
+
+class StockById(Resource):
+    def delete(self, id):
+        stock = Stock.query.filter(Stock.id == id).one_or_none()
+        if stock is None:
+            return make_response({'error':'Stock not found'}, 404)
+        db.session.delete(stock)
+        db.session.commit()
+        return make_response({}, 204)
+    
+api.add_resource(StockById, '/stocks/<int:id>' )
+
+class Stocks(Resource):
+    def get(self):
+        stocks = [stock.to_dict(rules=('-products', '-locations')) for stock in Stock.query.all()]
+        return make_response(stocks, 200) 
+    
+    def post(self):
+        fields = request.get_json()
+        try:
+            quantity = int(fields['quantity'])
+            if quantity <0:
+                return make_response({'error':'Quantity must be >=0'}, 400)
+            
+            stock = Stock(
+                product_id=fields['product_id'],
+                quantity=quantity,
+                location_id=fields['location_id']
+            )
+            db.session.add(stock)
+            db.session.commit()
+            return make_response(stock.to_dict(), 201)
+        except ValueError as e:
+            return make_response({'error':e.__str__()})
+
+
+
+
+api.add_resource(Stocks, '/stocks')
+
+class Locations(Resource):
+    def get(self):
+        locations = [location.to_dict(rules=('-products', '-stocks'))for location in Location.query.all()]
+        return make_response(locations, 200)
+    
+
+api.add_resource(Locations, '/locations')
 
 
 if __name__ == '__main__':
