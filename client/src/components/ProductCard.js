@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import {
 	Button,
 	Input,
@@ -40,7 +40,7 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 			.required('Price is required'),
 	});
 
-	const handleSubmit = (values, setSubmitting) => {
+	const handleSubmit = (values, { setSubmitting }) => {
 		fetch(`/products/${product.id}`, {
 			method: 'PATCH',
 			headers: {
@@ -63,7 +63,9 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 				console.error('Network error:', error);
 			})
 			.finally(() => {
-				setSubmitting(false);
+				if (typeof setSubmitting === 'function') {
+					setSubmitting(false);
+				}
 			});
 	};
 
@@ -192,14 +194,7 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 					</Text>
 					<Text as="h4">{product.description}</Text>
 
-					<Box
-						mt="auto"
-						margin={'auto'}
-
-						// display="flex"
-						// justifyContent={'space-between'}
-						// alignItems={'flex-end'}
-					>
+					<Box mt="auto" margin={'auto'}>
 						<Button
 							className="editBtn"
 							onClick={handleClick}

@@ -40,7 +40,6 @@ const AddStock = ({ products, locations, onAddStock }) => {
 			}
 			const newStock = await response.json();
 			onAddStock(newStock);
-			// Reset form state
 			setSelectedProduct('');
 			setSelectedLocation('');
 			setQuantity(1);

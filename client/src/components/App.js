@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import NavBar from './Navbar';
 

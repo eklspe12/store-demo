@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Input, Flex, useToast } from '@chakra-ui/react';
+import { Input, Flex } from '@chakra-ui/react';
 
 const StockSearch = ({ onSearch }) => {
 	const [searchTerm, setSearchTerm] = useState('');

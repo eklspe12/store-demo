@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
 
-# Standard library imports
-
-# Remote library imports
 from models import db, Product, Location, Stock
 
 from flask import request
@@ -12,12 +8,7 @@ from flask import Flask, make_response, jsonify, request, render_template
 from flask_cors import CORS
 import os
 
-# Local imports
 from config import app, db, api
-# Add your model imports
-
-
-# Views go here!
 
 @app.route('/')
 def index():
@@ -80,6 +71,18 @@ class ProductById(Resource):
 api.add_resource(ProductById, '/products/<int:id>')
 
 class StockById(Resource):
+    def patch(self, id):
+        stock = Stock.query.get(id)
+        if not stock:
+            return make_response({'error':'stock not found'}, 404)
+        data = request.get_json()
+        for field, value, in data.items():
+            if hasattr(stock, field):
+                setattr(stock, field, value)
+        db.session.commit()
+        return make_response(stock.to_dict(), 202)
+
+
     def delete(self, id):
         stock = Stock.query.filter(Stock.id == id).one_or_none()
         if stock is None:
@@ -87,6 +90,8 @@ class StockById(Resource):
         db.session.delete(stock)
         db.session.commit()
         return make_response({}, 204)
+    
+    
     
 api.add_resource(StockById, '/stocks/<int:id>' )
 

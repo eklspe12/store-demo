@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductCard from './ProductCard';
+import { Text } from '@chakra-ui/react';
 
 const ProductList = ({ products, onDelete, updateProduct }) => {
 	const productList = products.map((product) => (
@@ -11,7 +12,15 @@ const ProductList = ({ products, onDelete, updateProduct }) => {
 		/>
 	));
 
-	return <div className="storeContainer">{productList}</div>;
+	return (
+		<div>
+			{products.length === 0 ? (
+				<Text>No results match your search.</Text>
+			) : (
+				<div className="storeContainer">{productList}</div>
+			)}
+		</div>
+	);
 };
 
 export default ProductList;

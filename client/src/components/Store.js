@@ -15,7 +15,7 @@ const Store = () => {
 		setFilteredProducts(updatedProducts);
 	}
 
-	const AddProduct = (newProduct) => {
+	const addProduct = (newProduct) => {
 		setProducts([...products, newProduct]);
 		setFilteredProducts([...filteredProducts, newProduct]);
 		setShowForm(false);
@@ -23,13 +23,10 @@ const Store = () => {
 
 	function updateProduct(updatedProduct) {
 		const updatedProducts = products.map((product) => {
-			if (product.id !== updatedProduct.id) {
-				return product;
-			} else {
-				return updatedProduct;
-			}
+			return product.id === updatedProduct.id ? updatedProduct : product;
 		});
 		setProducts(updatedProducts);
+		setFilteredProducts(updatedProducts);
 	}
 
 	const toggleForm = () => {
@@ -56,10 +53,11 @@ const Store = () => {
 				console.log(products);
 			});
 	}, []);
+
 	return (
 		<Box mx="auto" w="80vw">
 			<AddProductForm
-				onAddProduct={AddProduct}
+				onAddProduct={addProduct}
 				onClick={toggleForm}
 				showForm={showForm}
 				setShowForm={setShowForm}
@@ -67,12 +65,11 @@ const Store = () => {
 			<ProductSearchBar onSearch={handleSearch} />
 			<ProductList
 				products={filteredProducts}
-				updateProduct={updateProduct}
 				onDelete={handleDelete}
-				filteredProducts={filteredProducts}
-				setFilteredProducts={setFilteredProducts}
+				updateProduct={updateProduct}
 			/>
 		</Box>
 	);
 };
+
 export default Store;
