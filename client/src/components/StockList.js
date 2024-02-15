@@ -14,12 +14,24 @@ import {
 	Flex,
 	Text,
 } from '@chakra-ui/react';
-
-const StockList = ({ searchResults, filterOption, searchQuery }) => {
+import ProductImage from './ProductImage';
+import AddStock from './AddStock';
+import StockFilter from './StockFilter';
+import StockSearch from './StockSearch';
+const StockList = ({
+	searchResults,
+	filterOption,
+	products,
+	locations,
+	onAddStock,
+	onSearch,
+	onSelect,
+}) => {
 	const [sortedSearchResults, setSortedSearchResults] = useState([]);
 	const [hoveredStockId, setHoveredStockId] = useState(null);
 	const [changedStockId, setChangedStockId] = useState(null);
 	const [quantity, setQuantity] = useState(1);
+	const [hoverStock, setHoverStock] = useState(null);
 
 	useEffect(() => {
 		const sortResults = () => {
@@ -87,7 +99,29 @@ const StockList = ({ searchResults, filterOption, searchQuery }) => {
 	};
 
 	return (
-		<Box p={4}>
+		<Box p={4} w="80vw" mx="auto">
+			<Flex>
+				<Box flex="1" mr="-200">
+					<AddStock
+						products={products}
+						locations={locations}
+						onAddStock={onAddStock}
+					/>
+				</Box>
+				<Box flex="1" ml="-200">
+					{hoverStock && <ProductImage imageUrl={hoverStock.product.image} />}
+				</Box>
+			</Flex>
+			<Box justifyContent={'center'}>
+				<Flex>
+					<Box flex="1">
+						<StockFilter onSelect={onSelect} />
+					</Box>
+					<Box flex="1">
+						<StockSearch onSearch={onSearch} />
+					</Box>
+				</Flex>
+			</Box>
 			{sortedSearchResults.length === 0 ? (
 				<Text>No results match your search.</Text>
 			) : (
@@ -102,11 +136,15 @@ const StockList = ({ searchResults, filterOption, searchQuery }) => {
 								<Th>Quantity</Th>
 							</Tr>
 						</Thead>
+
 						<Tbody>
 							{sortedSearchResults.map((stock) => (
 								<Tr
 									key={stock.id}
-									onMouseEnter={() => setHoveredStockId(stock.id)}
+									onMouseEnter={() => {
+										setHoveredStockId(stock.id);
+										setHoverStock(stock);
+									}}
 									onMouseLeave={() => setHoveredStockId(null)}
 								>
 									<Td>{stock.product.name}</Td>

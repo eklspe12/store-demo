@@ -7,11 +7,8 @@ const StockFilter = ({ onSelect }) => {
 	};
 
 	return (
-		<Box>
-			<Text fontSize="lg" fontWeight="bold" mb={2}>
-				Sort By:
-			</Text>
-			<Select placeholder="Select filter option" onChange={handleChange}>
+		<Box w="200px">
+			<Select placeholder="Sort by..." onChange={handleChange}>
 				<option value="productName">Product Name</option>
 				<option value="productId">Product ID</option>
 				<option value="locationAddress">Location Address</option>

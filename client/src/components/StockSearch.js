@@ -10,7 +10,7 @@ const StockSearch = ({ onSearch }) => {
 	};
 
 	return (
-		<Flex alignItems="center">
+		<Flex w="600px">
 			<Input
 				placeholder="Search by product name or location"
 				value={searchTerm}

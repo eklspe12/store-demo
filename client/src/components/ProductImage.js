@@ -1,10 +1,15 @@
 import { Box, Image, Text } from '@chakra-ui/react';
 
-const ProductImage = ({ imageUrl, isVisible }) => {
+const ProductImage = ({ imageUrl }) => {
 	return (
-		<Box border={'1px'} boxSize={'200px'} mx={'auto'} marginBottom={'10px'}>
-			{isVisible ? (
-				<Image src={imageUrl} alt="Product Image" boxSize="190px" />
+		<Box border={'1px'} boxSize={'270px'} mx={'auto'} marginBottom={'10px'}>
+			{imageUrl ? (
+				<Image
+					src={imageUrl}
+					alt="Product Image"
+					boxSize="270px"
+					border="1px"
+				/>
 			) : (
 				<Text fontSize="36px" textAlign={'center'} color="gray.600">
 					Hover over product to show image

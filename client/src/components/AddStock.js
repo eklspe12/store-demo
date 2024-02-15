@@ -49,14 +49,23 @@ const AddStock = ({ products, locations, onAddStock }) => {
 	};
 
 	return (
-		<Box p={4} mb={4} borderWidth="1px" borderRadius="lg">
-			<Text fontSize="lg" fontWeight="bold" mb={2}>
+		<Box
+			p={4}
+			mb={4}
+			borderWidth="1px"
+			borderRadius="lg"
+			w="400px"
+			mx="auto"
+			textAlign={'center'}
+		>
+			<Text fontSize="36px" fontWeight="bold" mb={2} textAlign={'center'}>
 				Add New Stock
 			</Text>
 			<Select
 				value={selectedProduct}
 				onChange={handleProductChange}
 				placeholder="Select product"
+				textAlign={'center'}
 			>
 				{products.map((product) => (
 					<option key={product.id} value={product.id}>
@@ -68,6 +77,7 @@ const AddStock = ({ products, locations, onAddStock }) => {
 				value={selectedLocation}
 				onChange={handleLocationChange}
 				placeholder="Select location"
+				textAlign={'center'}
 			>
 				{locations.map((location) => (
 					<option key={location.id} value={location.id}>
@@ -75,7 +85,11 @@ const AddStock = ({ products, locations, onAddStock }) => {
 					</option>
 				))}
 			</Select>
-			<Select value={quantity} onChange={handleQuantityChange}>
+			<Select
+				value={quantity}
+				onChange={handleQuantityChange}
+				textAlign={'center'}
+			>
 				{[...Array(99).keys()].map((num) => (
 					<option key={num + 1} value={num + 1}>
 						{num + 1}

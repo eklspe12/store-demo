@@ -77,19 +77,24 @@ const LocationFinder = () => {
 
 	return (
 		<div>
-			<AddStock
+			{/* <AddStock
 				products={products}
 				locations={locations}
 				onAddStock={handleAddStock}
 			/>
 			<StockSearch onSearch={handleSearch} />
 
-			<StockFilter onSelect={handleFilterSelect} />
+			<StockFilter onSelect={handleFilterSelect} /> */}
 
 			<StockList
 				searchResults={searchResults}
 				searchQuery={searchQuery}
 				filterOption={filterOption}
+				products={products}
+				locations={locations}
+				onAddStock={handleAddStock}
+				onSearch={handleSearch}
+				onSelect={handleFilterSelect}
 			/>
 		</div>
 	);
