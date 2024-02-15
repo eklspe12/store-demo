@@ -7,6 +7,7 @@ import {
 	VStack,
 	Box,
 	Text,
+	Flex,
 } from '@chakra-ui/react';
 
 const AddProductForm = ({
@@ -53,7 +54,7 @@ const AddProductForm = ({
 	};
 
 	return (
-		<Box mx="auto" w="40%">
+		<Box mx="auto" w="400px">
 			{showForm ? (
 				<VStack
 					as="form"
@@ -100,8 +101,14 @@ const AddProductForm = ({
 							onChange={handleChange}
 						/>
 					</FormControl>
-					<Button type="submit">Add Product</Button>
-					<Button onClick={() => setShowForm(false)}>Hide Form</Button>
+					<Box justifyContent={'center'} display={'flex'}>
+						<Button type="submit" margin={'5px'}>
+							Add Product
+						</Button>
+						<Button margin={'5px'} onClick={() => setShowForm(false)}>
+							Hide Form
+						</Button>
+					</Box>
 				</VStack>
 			) : (
 				<Button onClick={() => setShowForm(true)}>Add New Product</Button>

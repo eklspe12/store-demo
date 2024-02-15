@@ -15,3 +15,12 @@
 	width: 20;
 	height: 250;
 }
+
+.tHead {
+	background-color: rgb(230, 230, 230);
+}
+
+.customDropdown .chakra-select__listbox {
+	max-height: 200px;
+	overflow-y: auto;
+}

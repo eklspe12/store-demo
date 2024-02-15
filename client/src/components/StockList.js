@@ -100,111 +100,114 @@ const StockList = ({
 
 	return (
 		<Box p={4} w="80vw" mx="auto">
-			<Flex>
-				<Box flex="1" mr="-200">
-					<AddStock
-						products={products}
-						locations={locations}
-						onAddStock={onAddStock}
-					/>
-				</Box>
-				<Box flex="1" ml="-200">
-					{hoverStock && <ProductImage imageUrl={hoverStock.product.image} />}
-				</Box>
-			</Flex>
+			<Box>
+				<AddStock
+					products={products}
+					locations={locations}
+					onAddStock={onAddStock}
+				/>
+			</Box>
+
 			<Box justifyContent={'center'}>
-				<Flex>
-					<Box flex="1">
-						<StockFilter onSelect={onSelect} />
-					</Box>
-					<Box flex="1">
-						<StockSearch onSearch={onSearch} />
-					</Box>
-				</Flex>
+				<Box justifyContent="center" display="flex">
+					<StockFilter onSelect={onSelect} />
+					<StockSearch onSearch={onSearch} />
+				</Box>
 			</Box>
 			{sortedSearchResults.length === 0 ? (
 				<Text>No results match your search.</Text>
 			) : (
-				<Center>
-					<Table variant="striped" colorScheme="teal">
-						<Thead>
-							<Tr>
-								<Th>Product Name</Th>
-								<Th>Product ID</Th>
-								<Th>Location Address</Th>
-								<Th>Location ID</Th>
-								<Th>Quantity</Th>
-							</Tr>
-						</Thead>
-
-						<Tbody>
-							{sortedSearchResults.map((stock) => (
-								<Tr
-									key={stock.id}
-									onMouseEnter={() => {
-										setHoveredStockId(stock.id);
-										setHoverStock(stock);
-									}}
-									onMouseLeave={() => setHoveredStockId(null)}
-								>
-									<Td>{stock.product.name}</Td>
-									<Td>{stock.product.id}</Td>
-									<Td>{stock.location.address}</Td>
-									<Td>{stock.location.id}</Td>
-									<Td>
-										<Flex alignItems="center">
-											{changedStockId === stock.id ? (
-												<>
-													<Button
-														onClick={() => handleQuantityChange(quantity - 1)}
-													>
-														-
-													</Button>
-													<Input
-														type="number"
-														min={1}
-														max={99}
-														value={quantity}
-														readOnly
-														onChange={(e) =>
-															handleQuantityChange(e.target.value)
-														}
-														width={'50px'}
-														sx={{ py: '0', px: '0', textAlign: 'center' }}
-													/>
-													<Button
-														onClick={() => handleQuantityChange(quantity + 1)}
-													>
-														+
-													</Button>
-													<Button onClick={handleConfirmChange} ml={2}>
-														Confirm Change?
-													</Button>
-												</>
-											) : (
-												<>
-													{stock.quantity}
-													<Button
-														onClick={() => setChangedStockId(stock.id)}
-														marginLeft={'5px'}
-													>
-														Change
-													</Button>
-												</>
-											)}
-										</Flex>
-									</Td>
-									<Td>
-										<DeleteStock
-											stockId={stock.id}
-											onDelete={() => handleDeleteStock(stock.id)}
-										/>
-									</Td>
+				<Center marginTop="10px">
+					<Box maxHeight="500px" overflowY="auto" position="relative">
+						<Table variant="striped" colorScheme="teal">
+							<Thead
+								position="sticky"
+								top="0"
+								zIndex="sticky"
+								className="tHead"
+							>
+								<Tr>
+									<Th>Product Name</Th>
+									<Th>Product ID</Th>
+									<Th>Location Address</Th>
+									<Th>Location ID</Th>
+									<Th>Quantity</Th>
+									<Th></Th>
 								</Tr>
-							))}
-						</Tbody>
-					</Table>
+							</Thead>
+
+							<Tbody>
+								{sortedSearchResults.map((stock) => (
+									<Tr
+										key={stock.id}
+										onMouseEnter={() => {
+											setHoveredStockId(stock.id);
+											setHoverStock(stock);
+										}}
+										onMouseLeave={() => setHoveredStockId(null)}
+									>
+										<Td>{stock.product.name}</Td>
+										<Td>{stock.product.id}</Td>
+										<Td>{stock.location.address}</Td>
+										<Td>{stock.location.id}</Td>
+										<Td>
+											<Flex alignItems="center">
+												{changedStockId === stock.id ? (
+													<>
+														<Button
+															onClick={() => handleQuantityChange(quantity - 1)}
+														>
+															-
+														</Button>
+														<Input
+															type="number"
+															min={1}
+															max={99}
+															value={quantity}
+															readOnly
+															onChange={(e) =>
+																handleQuantityChange(e.target.value)
+															}
+															width={'50px'}
+															sx={{ py: '0', px: '0', textAlign: 'center' }}
+														/>
+														<Button
+															onClick={() => handleQuantityChange(quantity + 1)}
+														>
+															+
+														</Button>
+														<Button onClick={handleConfirmChange} ml={2}>
+															Confirm Change?
+														</Button>
+													</>
+												) : (
+													<>
+														{stock.quantity}
+														<Button
+															onClick={() => setChangedStockId(stock.id)}
+															marginLeft={'5px'}
+														>
+															Change
+														</Button>
+													</>
+												)}
+											</Flex>
+										</Td>
+										<Td>
+											<DeleteStock
+												stockId={stock.id}
+												onDelete={() => handleDeleteStock(stock.id)}
+											/>
+										</Td>
+									</Tr>
+								))}
+							</Tbody>
+						</Table>
+					</Box>
 				</Center>
+				// {/* <Box flex="1" ml="-200">
+				// 	{hoverStock && <ProductImage imageUrl={hoverStock.product.image} />}
+				// </Box> */}
 			)}
 		</Box>
 	);

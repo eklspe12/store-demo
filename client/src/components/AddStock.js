@@ -64,7 +64,7 @@ const AddStock = ({ products, locations, onAddStock }) => {
 			<Select
 				value={selectedProduct}
 				onChange={handleProductChange}
-				placeholder="Select product"
+				placeholder="Select Product"
 				textAlign={'center'}
 			>
 				{products.map((product) => (
@@ -76,8 +76,10 @@ const AddStock = ({ products, locations, onAddStock }) => {
 			<Select
 				value={selectedLocation}
 				onChange={handleLocationChange}
-				placeholder="Select location"
+				placeholder="Select Location"
 				textAlign={'center'}
+				minH={'30px'}
+				h={'30px'}
 			>
 				{locations.map((location) => (
 					<option key={location.id} value={location.id}>
@@ -89,8 +91,9 @@ const AddStock = ({ products, locations, onAddStock }) => {
 				value={quantity}
 				onChange={handleQuantityChange}
 				textAlign={'center'}
+				placeholder="Select Quantity"
 			>
-				{[...Array(99).keys()].map((num) => (
+				{[...Array(20).keys()].map((num) => (
 					<option key={num + 1} value={num + 1}>
 						{num + 1}
 					</option>
