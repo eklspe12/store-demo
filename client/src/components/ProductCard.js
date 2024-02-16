@@ -92,7 +92,7 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 			mx="auto"
 			display="flex"
 			flexDirection="column"
-			height="450px"
+			height="500px"
 			width="250px"
 		>
 			{isFlipped ? (
@@ -110,7 +110,9 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 				>
 					{({ errors, touched }) => (
 						<Form className="productCard editForm">
-							<Text as="h3">Edit Product</Text>
+							<Text as="h3" className="editTitle">
+								Edit Product
+							</Text>
 							<FormControl>
 								<FormLabel>Name</FormLabel>
 								<Input

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Box, Text } from '@chakra-ui/react';
+import { Input, Box, Text, css } from '@chakra-ui/react';
 
 const ProductSearchBar = ({ onSearch }) => {
 	const [searchTerm, setSearchTerm] = useState('');
@@ -12,13 +12,14 @@ const ProductSearchBar = ({ onSearch }) => {
 
 	return (
 		<Box w="100%">
-			<Text fontSize="lg" fontWeight="bold" mb={2}>
+			<Text fontSize="30px" fontWeight="bold" mb={2}>
 				Search Products
 			</Text>
 			<Input
 				placeholder="Search by product name"
 				value={searchTerm}
 				onChange={handleChange}
+				focusBorderColor="gray.400"
 			/>
 		</Box>
 	);

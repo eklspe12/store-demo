@@ -16,6 +16,7 @@ const StockSearch = ({ onSearch }) => {
 				value={searchTerm}
 				onChange={handleChange}
 				mr={2}
+				focusBorderColor="gray.400"
 			/>
 		</Flex>
 	);
