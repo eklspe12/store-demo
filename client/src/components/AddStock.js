@@ -20,6 +20,7 @@ const AddStock = ({ products, locations, onAddStock }) => {
 
 	const handleSubmit = async () => {
 		if (!selectedProduct || !selectedLocation || !quantity) {
+			alert('Please select an option from each field before submitting.');
 			return;
 		}
 

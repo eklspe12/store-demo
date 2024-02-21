@@ -14,7 +14,6 @@ import {
 	Flex,
 	Text,
 } from '@chakra-ui/react';
-import ProductImage from './ProductImage';
 import AddStock from './AddStock';
 import StockFilter from './StockFilter';
 import StockSearch from './StockSearch';
@@ -214,9 +213,6 @@ const StockList = ({
 						</Table>
 					</Box>
 				</Center>
-				// {/* <Box flex="1" ml="-200">
-				// 	{hoverStock && <ProductImage imageUrl={hoverStock.product.image} />}
-				// </Box> */}
 			)}
 		</Box>
 	);

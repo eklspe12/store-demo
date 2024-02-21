@@ -31,6 +31,22 @@ const AddProductForm = ({
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if (!formData.name.trim()) {
+			alert('Name required before submitting.');
+			return;
+		}
+		if (!formData.description.trim()) {
+			alert('Description required before submitting.');
+			return;
+		}
+		if (!formData.image.trim()) {
+			alert('Image URL required before submitting.');
+			return;
+		}
+		if (isNaN(formData.price) || parseFloat(formData.price) <= 0) {
+			alert('Price must be a positive number.');
+			return;
+		}
 		try {
 			const response = await fetch('/products', {
 				method: 'POST',
