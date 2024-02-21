@@ -32,6 +32,7 @@ const StockList = ({
 	const [changedStockId, setChangedStockId] = useState(null);
 	const [quantity, setQuantity] = useState(1);
 	const [hoverStock, setHoverStock] = useState(null);
+	const color = 'rgb(255, 140, 50)';
 
 	useEffect(() => {
 		const sortResults = () => {
@@ -119,7 +120,7 @@ const StockList = ({
 			) : (
 				<Center marginTop="10px">
 					<Box maxHeight="500px" overflowY="auto" position="relative">
-						<Table variant="striped" colorScheme="teal">
+						<Table variant="striped" colorScheme="gray">
 							<Thead
 								position="sticky"
 								top="0"
@@ -137,7 +138,7 @@ const StockList = ({
 							</Thead>
 
 							<Tbody>
-								{sortedSearchResults.map((stock) => (
+								{sortedSearchResults.map((stock, index) => (
 									<Tr
 										key={stock.id}
 										onMouseEnter={() => {
@@ -145,6 +146,7 @@ const StockList = ({
 											setHoverStock(stock);
 										}}
 										onMouseLeave={() => setHoveredStockId(null)}
+										backgroundColor={index % 2 === 0 ? 'lightorange' : 'white'}
 									>
 										<Td>{stock.product.name}</Td>
 										<Td>{stock.product.id}</Td>
@@ -156,6 +158,7 @@ const StockList = ({
 													<>
 														<Button
 															onClick={() => handleQuantityChange(quantity - 1)}
+															colorScheme="red"
 														>
 															-
 														</Button>
@@ -173,22 +176,28 @@ const StockList = ({
 														/>
 														<Button
 															onClick={() => handleQuantityChange(quantity + 1)}
+															colorScheme="green"
 														>
 															+
 														</Button>
-														<Button onClick={handleConfirmChange} ml={2}>
+														<Button
+															onClick={handleConfirmChange}
+															ml={2}
+															colorScheme="orange"
+														>
 															Confirm Change?
 														</Button>
 													</>
 												) : (
 													<>
-														{stock.quantity}
 														<Button
 															onClick={() => setChangedStockId(stock.id)}
-															marginLeft={'5px'}
+															marginRight={'5px'}
+															colorScheme="orange"
 														>
 															Change
 														</Button>
+														{stock.quantity}
 													</>
 												)}
 											</Flex>

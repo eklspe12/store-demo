@@ -1,33 +1,49 @@
-import { Box, Text, Link } from '@chakra-ui/react';
+import { Box, Text, Link, Flex, Button, Icon } from '@chakra-ui/react';
+import { FaLinkedin, FaGithub } from 'react-icons/fa';
+import kog from '../assets/kog.png';
 const Home = () => {
 	return (
-		<Box className="homepage" p={4}>
-			<Box className="homeInfo">
-				<Text>
-					Welcome to 'King of the Grill' a general store demo app. The frontend
-					was made from scratch with the use of React and Formik, while the
-					backend was made with a combination of python and flask. For more
-					information about how the site works, feel free to explore the other
-					links, or checkout the Readme.
-				</Text>
+		<Flex p={4} marginTop={'50px'} justifyContent={'center'}>
+			<Box flex="1" className="homepage" p={4} my={'auto'} maxWidth="50%">
+				<Box className="homeInfo">
+					<Text>
+						Welcome to 'King of the Grill' a general store demo app. The
+						frontend was made using React, Chakra, and Formik while the backend
+						was made with Python, Flask, and SQLAlchemy. For more information
+						about how the site works, feel free to explore the other links, or
+						check out the ReadMe.
+					</Text>
+				</Box>
+				<Box marginTop={'15px'}>
+					<Flex justifyContent={'center'}>
+						<a href="https://www.linkedin.com/in/spencer-eklund">
+							<Button
+								leftIcon={<Icon as={FaLinkedin} />}
+								colorScheme="blue"
+								mr={4}
+							>
+								LinkedIn
+							</Button>
+						</a>
+						<a href="https://github.com/eklspe12">
+							<Button leftIcon={<Icon as={FaGithub} />} colorScheme="gray">
+								GitHub
+							</Button>
+						</a>
+					</Flex>
+				</Box>
 			</Box>
-			<Box className="contactInfo">
-				<Text className="name">Spencer Eklund</Text>
-				<Text>
-					<Link
-						href="https://www.linkedin.com/in/spencer-eklund/"
-						className="linkedin"
-					>
-						LinkedIn
-					</Link>
-				</Text>
-				<Text>
-					<Link href="https://github.com/eklspe12" className="github">
-						Github
-					</Link>
-				</Text>
+			<Box className="logo" display={'flex'} alignItems="center">
+				<img
+					src={kog}
+					alt="image"
+					style={{
+						border: '15px solid rgb(255, 140, 50)',
+						borderRadius: '15px',
+					}}
+				/>
 			</Box>
-		</Box>
+		</Flex>
 	);
 };
 export default Home;

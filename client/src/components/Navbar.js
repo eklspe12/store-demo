@@ -6,8 +6,8 @@ import LocationFinder from './LocationFinder';
 const NavBar = () => {
 	return (
 		<div>
-			<Tabs>
-				<TabList>
+			<Tabs colorScheme="orange">
+				<TabList bg="black" color={'white'}>
 					<Tab>Home</Tab>
 					<Tab>Manage Inventory</Tab>
 					<Tab>View/Modify Products</Tab>

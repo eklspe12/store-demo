@@ -54,64 +54,101 @@ const AddProductForm = ({
 	};
 
 	return (
-		<Box mx="auto" w="400px">
+		<Box
+			mx="auto"
+			w="400px"
+			className="addForm"
+			backgroundColor={showForm ? 'rgb(47, 47, 46)' : 'transparent'}
+		>
 			{showForm ? (
 				<VStack
 					as="form"
 					onSubmit={handleSubmit}
-					spacing={4}
+					spacing={0}
 					align="flex-start"
 				>
-					<Text fontSize={'34px'} fontWeight={'bold'} textAlign={'center'}>
-						Add New Product
-					</Text>
+					<Flex justifyContent="center" width="100%">
+						<Text fontSize={'26px'} fontWeight={'bold'} borderBottom={'1px'}>
+							Add New Product
+						</Text>
+					</Flex>
 					<FormControl>
-						<FormLabel>Name</FormLabel>
+						<FormLabel textAlign={'center'}>Name</FormLabel>
 						<Input
 							type="text"
 							name="name"
 							value={formData.name}
 							onChange={handleChange}
+							size={'sm'}
+							focusBorderColor="orange.600"
 						/>
 					</FormControl>
 					<FormControl>
-						<FormLabel>Description</FormLabel>
+						<FormLabel textAlign={'center'}>Description</FormLabel>
 						<Input
 							type="text"
 							name="description"
 							value={formData.description}
 							onChange={handleChange}
+							size={'sm'}
+							focusBorderColor="orange.600"
 						/>
 					</FormControl>
 					<FormControl>
-						<FormLabel>Image URL</FormLabel>
+						<FormLabel textAlign={'center'}>Image URL</FormLabel>
 						<Input
 							type="text"
 							name="image"
 							value={formData.image}
 							onChange={handleChange}
+							size={'sm'}
+							focusBorderColor="orange.600"
 						/>
 					</FormControl>
 					<FormControl>
-						<FormLabel>Price</FormLabel>
+						<FormLabel textAlign={'center'}>Price</FormLabel>
 						<Input
 							type="text"
 							name="price"
 							value={formData.price}
 							onChange={handleChange}
+							size={'sm'}
+							focusBorderColor="orange.600"
 						/>
 					</FormControl>
-					<Box justifyContent={'center'} display={'flex'}>
-						<Button type="submit" margin={'5px'}>
+					<Box justifyContent={'center'} display={'flex'} mx="auto">
+						<Button
+							type="submit"
+							margin={'5px'}
+							colorScheme="orange"
+							border={'1px'}
+							width="110px"
+						>
 							Add Product
 						</Button>
-						<Button margin={'5px'} onClick={() => setShowForm(false)}>
+						<Button
+							margin={'5px'}
+							onClick={() => setShowForm(false)}
+							colorScheme="orange"
+							border={'1px'}
+							width="110px"
+						>
 							Hide Form
 						</Button>
 					</Box>
 				</VStack>
 			) : (
-				<Button onClick={() => setShowForm(true)}>Add New Product</Button>
+				<Flex justifyContent={'center'}>
+					<Button
+						colorScheme="orange"
+						border={'1px'}
+						onClick={() => setShowForm(true)}
+						size={'lg'}
+						fontSize={'22px'}
+					>
+						Add New Product
+					</Button>
+				</Flex>
 			)}
 		</Box>
 	);

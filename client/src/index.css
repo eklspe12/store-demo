@@ -17,7 +17,7 @@
 }
 
 .tHead {
-	background-color: rgb(230, 230, 230);
+	background-color: rgb(255, 220, 160);
 }
 
 .customDropdown .chakra-select__listbox {
@@ -26,11 +26,10 @@
 }
 
 .productCard {
-	border: 3px solid transparent;
+	border: 3px solid lightgray;
 }
 
 .productCard:hover {
-	/* Animate the border to gradually encircle the product card */
 	animation: border-appear 1s forwards;
 }
 
@@ -82,4 +81,24 @@
 .editForm label {
 	font-weight: 500;
 	text-align: center;
+}
+
+.addForm {
+	background-color: rgb(47, 47, 46);
+	color: whitesmoke;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+.logo {
+	width: 30vw;
+	border-color: rgb(228, 82, 0);
+	border-radius: 25px;
+	border: 10px;
+}
+
+.homepage {
+	font-size: 26px;
+	text-align: center;
+	width: 30vw;
 }

@@ -162,13 +162,13 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 								)}
 							</FormControl>
 							<Button className="saveBtn" type="submit">
-								Save
+								Save 💾
 							</Button>
 							<Button
 								className="viewBtn"
 								onClick={() => setIsFlipped(!isFlipped)}
 							>
-								View Product
+								View Product 🔍
 							</Button>
 						</Form>
 					)}
@@ -204,7 +204,7 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 							marginLeft={'4px'}
 							marginRight={'4px'}
 						>
-							Edit
+							Edit ✏️
 						</Button>
 						<Button
 							className="deleteBtn"
@@ -213,7 +213,7 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 							marginLeft={'4px'}
 							marginRight={'4px'}
 						>
-							Delete.
+							Delete 🗑️
 						</Button>
 					</Box>
 				</Box>

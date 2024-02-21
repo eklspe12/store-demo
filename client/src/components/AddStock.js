@@ -57,6 +57,7 @@ const AddStock = ({ products, locations, onAddStock }) => {
 			w="400px"
 			mx="auto"
 			textAlign={'center'}
+			className="addForm"
 		>
 			<Text fontSize="36px" fontWeight="bold" mb={2} textAlign={'center'}>
 				Add New Stock
@@ -99,7 +100,7 @@ const AddStock = ({ products, locations, onAddStock }) => {
 					</option>
 				))}
 			</Select>
-			<Button mt={2} onClick={handleSubmit}>
+			<Button mt={2} onClick={handleSubmit} colorScheme="orange" border={'1px'}>
 				Add Stock
 			</Button>
 		</Box>
