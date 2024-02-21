@@ -1,357 +1,128 @@
-# Phase 4 Full-Stack Application Project Template
+# King of the Grill - General Store Demo
 
-## Learning Goals
+---
 
-- Discuss the basic directory structure of a full-stack Flask/React application.
-- Carry out the first steps in creating your Phase 4 project.
+## Author
+
+### Spencer Eklund
+
+- Linkedin https://www.linkedin.com/in/spencer-eklund/
+- Github https://github.com/eklspe12
 
 ---
 
 ## Introduction
 
-Fork and clone this lesson for a template for your full-stack application. Take
-a look at the directory structure before we begin (NOTE: node_modules will be
-generated in a subsequent step):
-
-```console
-$ tree -L 2
-$ # the -L argument limits the depth at which we look into the directory structure
-.
-├── CONTRIBUTING.md
-├── LICENSE.md
-├── Pipfile
-├── README.md
-├── client
-│   ├── README.md
-│   ├── package.json
-│   ├── public
-│   └── src
-└── server
-    ├── app.py
-    ├── config.py
-    ├── models.py
-    └── seed.py
-```
-
-A `migrations` folder will be added to the `server` directory in a later step.
-
-The `client` folder contains a basic React application, while the `server`
-folder contains a basic Flask application. You will adapt both folders to
-implement the code for your project .
-
-NOTE: If you did not previously install `tree` in your environment setup, MacOS
-users can install this with the command `brew install tree`. WSL and Linux users
-can run `sudo apt-get install tree` to download it as well.
-
-## Where Do I Start?
-
-Just as with your Phase 3 Project, this will likely be one of the biggest
-projects you've undertaken so far. Your first task should be creating a Git
-repository to keep track of your work and roll back any undesired changes.
-
-### Removing Existing Git Configuration
-
-If you're using this template, start off by removing the existing metadata for
-Github and Canvas. Run the following command to carry this out:
-
-```console
-$ rm -rf .git .canvas
-```
-
-The `rm` command removes files from your computer's memory. The `-r` flag tells
-the console to remove _recursively_, which allows the command to remove
-directories and the files within them. `-f` removes them permanently.
-
-`.git` contains this directory's configuration to track changes and push to
-Github (you want to track and push _your own_ changes instead), and `.canvas`
-contains the metadata to create a Canvas page from your Git repo. You don't have
-the permissions to edit our Canvas course, so it's not worth keeping around.
-
-### Creating Your Own Git Repo
-
-First things first- rename this directory! Once you have an idea for a name,
-move one level up with `cd ..` and run
-`mv python-p4-project-template <new-directory-name>` to change its name (replace
-<new-directory-name> with an appropriate project directory name).
-
-> **Note: If you typed the `mv` command in a terminal within VS Code, you should
-> close VS Code then reopen it.**
-
-> **Note: `mv` actually stands for "move", but your computer interprets this
-> rename as a move from a directory with the old name to a directory with a new
-> name.**
-
-`cd` back into your new directory and run `git init` to create a local git
-repository. Add all of your local files to version control with `git add --all`,
-then commit them with `git commit -m'initial commit'`. (You can change the
-message here- this one is just a common choice.)
-
-Navigate to [GitHub](https://github.com). In the upper-right corner of the page,
-click on the "+" dropdown menu, then select "New repository". Enter the name of
-your local repo, choose whether you would like it to be public or private, make
-sure "Initialize this repository with a README" is unchecked (you already have
-one), then click "Create repository".
-
-Head back to the command line and enter
-`git remote add origin git@github.com:github-username/new-repository-name.git`.
-NOTE: Replace `github-username` with your github username, and
-`new-repository-name` with the name of your new repository. This command will
-map the remote repository to your local repository. Finally, push your first
-commit with `git push -u origin main`.
-
-Your project is now version-controlled locally and online. This will allow you
-to create different versions of your project and pick up your work on a
-different machine if the need arises.
+This app is a demo designed to showcase several skills and concepts relevant to maintaining inventory online. The 'Manage Inventory' tab allows users to update inventory of individual products and locations, while 'View/Modify Products' allows users to add new products and modify existing ones. The front-end is made with React, Chakra, and Formik while the back-end is made with Python, Flask, and SQL. Continue reading for an explanation of each page, followed by a detailed explanation of each file.
 
 ---
 
-## Setup
+## Getting Started
 
-### `server/`
-
-The `server/` directory contains all of your backend code.
-
-`app.py` is your Flask application. You'll want to use Flask to build a simple
-API backend like we have in previous modules. You should use Flask-RESTful for
-your routes. You should be familiar with `models.py` and `seed.py` by now, but
-remember that you will need to use Flask-SQLAlchemy, Flask-Migrate, and
-SQLAlchemy-Serializer instead of SQLAlchemy and Alembic in your models.
-
-The project contains a default `Pipfile` with some basic dependencies. You may
-adapt the `Pipfile` if there are additional dependencies you want to add for
-your project.
-
-To download the dependencies for the backend server, run:
-
-```console
-pipenv install
-pipenv shell
-```
-
-You can run your Flask API on [`localhost:5555`](http://localhost:5555) by
-running:
-
-```console
-python server/app.py
-```
-
-Check that your server serves the default route `http://localhost:5555`. You
-should see a web page with the heading "Project Server".
-
-### `client/`
-
-The `client/` directory contains all of your frontend code. The file
-`package.json` has been configured with common React application dependencies,
-include `react-router-dom`. The file also sets the `proxy` field to forward
-requests to `"http://localhost:5555". Feel free to change this to another port-
-just remember to configure your Flask app to use another port as well!
-
-To download the dependencies for the frontend client, run:
-
-```console
-npm install --prefix client
-```
-
-You can run your React app on [`localhost:3000`](http://localhost:3000) by
-running:
-
-```sh
-npm start --prefix client
-```
-
-Check that your the React client displays a default page
-`http://localhost:3000`. You should see a web page with the heading "Project
-Client".
-
-## Generating Your Database
-
-NOTE: The initial project directory structure does not contain the `instance` or
-`migrations` folders. Change into the `server` directory:
-
-```console
-cd server
-```
-
-Then enter the commands to create the `instance` and `migrations` folders and
-the database `app.db` file:
-
-```
-flask db init
-flask db upgrade head
-```
-
-Type `tree -L 2` within the `server` folder to confirm the new directory
-structure:
-
-```console
-.
-├── app.py
-├── config.py
-├── instance
-│   └── app.db
-├── migrations
-│   ├── README
-│   ├── __pycache__
-│   ├── alembic.ini
-│   ├── env.py
-│   ├── script.py.mako
-│   └── versions
-├── models.py
-└── seed.py
-```
-
-Edit `models.py` and start creating your models. Import your models as needed in
-other modules, i.e. `from models import ...`.
-
-Remember to regularly run
-`flask db revision --autogenerate -m'<descriptive message>'`, replacing
-`<descriptive message>` with an appropriate message, and `flask db upgrade head`
-to track your modifications to the database and create checkpoints in case you
-ever need to roll those modifications back.
-
-> **Tip: It's always a good idea to start with an empty revision! This allows
-> you to roll all the way back while still holding onto your database. You can
-> create this empty revision with `flask db revision -m'Create DB'`.**
-
-If you want to seed your database, now would be a great time to write out your
-`seed.py` script and run it to generate some test data. Faker has been included
-in the Pipfile if you'd like to use that library.
+Before you start this application you will need to install a few things. Navigate to the root folder and run "npm install" and "pipenv install". When these have finished downloading, you can start the frontend by navigating to the client folder and running "npm start". To start the backend, open a new tab in your terminal and run "pipenv shell", followed by "python seed.py", and finally "python app.py".
 
 ---
 
-#### `config.py`
+# Pages
 
-When developing a large Python application, you might run into a common issue:
-_circular imports_. A circular import occurs when two modules import from one
-another, such as `app.py` and `models.py`. When you create a circular import and
-attempt to run your app, you'll see the following error:
+## Nav Bar
 
-```console
-ImportError: cannot import name
-```
+On the top of each page is the NavBar created with Chakra UI. The tabs present allow users to switch which page they view.
 
-If you're going to need an object in multiple modules like `app` or `db`,
-creating a _third_ module to instantiate these objects can save you a great deal
-of circular grief. Here's a good start to a Flask config file (you may need more
-if you intend to include features like authentication and passwords):
+## Homepage
 
-```py
-# Standard library imports
+This page is where users would include background and contact information about their company.
 
-# Remote library imports
-from flask import Flask
-from flask_cors import CORS
-from flask_migrate import Migrate
-from flask_restful import Api
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
+## Manage Inventory
 
-# Local imports
+This is where store owners would keep track of inventory for each location. Once this page users can add new inventory to specific stores, update the quantity of a product at a given store, and delete a product from a store entirely. Users can also search for specific products or locations with the searchbar.
 
-# Instantiate app, set attributes
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.json.compact = False
+## View/Modify Products
 
-# Define metadata, instantiate db
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-db = SQLAlchemy(metadata=metadata)
-migrate = Migrate(app, db)
-db.init_app(app)
-
-# Instantiate REST API
-api = Api(app)
-
-# Instantiate CORS
-CORS(app)
-
-```
-
-Now let's review that last line...
-
-#### CORS
-
-CORS (Cross-Origin Resource Sharing) is a system that uses HTTP headers to
-determine whether resources from different servers-of-origin can be accessed. If
-you're using the fetch API to connect your frontend to your Flask backend, you
-need to configure CORS on your Flask application instance. Lucky for us, that
-only takes one line:
-
-```py
-CORS(app)
-
-```
-
-By default, Flask-CORS enables CORS on all routes in your application with all
-fetching servers. You can also specify the resources that allow CORS. The
-following specifies that routes beginning with `api/` allow CORS from any
-originating server:
-
-```py
-CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-```
-
-You can also set this up resource-by-resource by importing and using the
-`@cross_origin` decorator:
-
-```py
-@app.route("/")
-@cross_origin()
-def howdy():
-  return "Howdy partner!"
-
-```
+Here users can view and modify information about available products. All products are viewable on loading, to view specific items you can use the searchbar to look for specific names. Each product card displays a price, description, and image for a product. If users would like to edit products they can click the edit product button, which flips the product card to an update form that will save information on submit. To add a new product use the associated form. To delete a product, click the 'Delete' button.
 
 ---
 
-## Updating Your README.md
+# Files
 
-`README.md` is a Markdown file that describes your project. These files can be
-used in many different ways- you may have noticed that we use them to generate
-entire Canvas lessons- but they're most commonly used as homepages for online
-Git repositories. **When you develop something that you want other people to
-use, you need to have a README.**
+## Client
 
-Markdown is not a language that we cover in Flatiron's Software Engineering
-curriculum, but it's not a particularly difficult language to learn (if you've
-ever left a comment on Reddit, you might already know the basics). Refer to the
-cheat sheet in this lesson's resources for a basic guide to Markdown.
+### AddProduct.js
 
-### What Goes into a README?
+Contains form for adding new products using Chakra UI components. Form input is validated with formik and alerts are sent to the user to ensure all fields have content of correct type. An alert is displayed to the user if an input field is blank or contains the wrong data type. When the 'Add Product" button is clicked and all validations pass, a POST request is sent to add the new location to the backend database. The new product is automatically rendered for the user.
 
-This README should serve as a template for your own- go through the important
-files in your project and describe what they do. Each file that you edit (you
-can ignore your migration files) should get at least a paragraph. Each function
-should get a small blurb.
+### AddStock.js
 
-You should descibe your application first, and with a good level of detail. The
-rest should be ordered by importance to the user. (Probably routes next, then
-models.)
+Contains form for adding new inventory using Chakra UI components. All form input fields utilize formik and alerts for validation. An alert is shown to the user if an input field is blank or the wrong data type. The handleLocation/Quantity/Product change functions update values using Reacts useState. When the "Add Product" button is clicked and all validations pass, a POST request is sent to add the new products values to the backend database. The new stock instance is automatically rendered for the user.
 
-Screenshots and links to resources that you used throughout are also useful to
-users and collaborators, but a little more syntactically complicated. Only add
-these in if you're feeling comfortable with Markdown.
+### App.js
+
+Contains NavBar component and wraps it in ChakraProvider component from Chakra UI to allow a seamless transition between pages.
+
+### DeleteStock.js
+
+Receives stockId from parent component. On click, sends an alert to the user to confirm they would like to delete the stock instance before sending a delete patch to the server. Stock table is automatically updated to remove deleted stock.
+
+### Home.js
+
+Component that holds information for the homepage such as business details, contact information, and brand logo.
+
+### Manage Inventory
+
+Parent component that contains several functions to be passed down as props. fetchAllStocks fetches all stock instances from the back end then updates the allStocks and searchResults variables using React useState. fetchProductsAndLocations performs a similar function to fetchAllStocks except that as the name implies, this function receives and sets states relevant to product and location instances. handleSearch will be passed down to the StockSearch component where it is given the input from the searchbar as a prop before checking to see if the name of any products or locations match the searched term (more info under StockSearch.js). handleFilter updates the filterOption variable using useState and is passed to the StockFilter component. handleAddStock receives a newStock and adds it to the appropriate variables using React useState. The ManageIventory component also contains the StockList component.
+
+### NavBar.js
+
+Uses Chakra UI Tab components to create a clean and efficient navigation bar on the top of the page.
+
+### ProductCard.js
+
+Receives individual products as well as functions to assist with deleting and updating products. One side of product card displays product name, description, image, price, a button for removing the product, and a button for editing the product. If the user clicks the "Remove from catalog" button then delete patch is sent to remove it from the database, then the products state is updated on the front end to remove the product for the user as well. The edit product button changes the class of the card which changes the display to a form that is controlled with formik. Whatever the user enters in the form will be be sent to the backend as a PATCH request when the user clicks save. The save button also automatically changes the card to show updated values.
+
+### ProductList.js
+
+Receives products state variable then maps each product to create individual product cards. Also receives functions for assisting with deleting and updating products to be passed to individual ProductCard components.
+
+### StockFilter
+
+Component contains dropdown menu with Chakra UI Select components to choose how stock instances should be organized. Once an option is selected, the table is updated automatically.
+
+### StockList
+
+Displays stock instances as a table created with Chakra UI. A React useEffect hook is used to render the stock items in the order determined by the sortResults, which decides the order based on the option selected with the StockFilter component. handleDeleteStock removes a stock instance from the array and rerenders the table without the deleted stock. handleQuantityChange ensures the user selected a valid number before updating the quantity for a stock instance on the front and back end.
+
+### StockSearch.js
+
+Retrieves onSearch function from parent component and updates searchTerm state based on user input. User input is then sent to the onSearch function on each change, which causes the stock list to rerender.
+
+### Store.js
+
+Highest level component for the 'View/Modify Products' page. This file contains functions for adding, deleting, updating, and filtering products. Also passes props from App.js down to AddProduct and ProductList components. Formik is used to control input of search bar.
+
+### Index.js
+
+Imports BrowerRouter and wraps App component with it to allow the use of the NavBar to move between pages.
 
 ---
 
-## Conclusion
+## Server
 
-A lot of work goes into a full-stack application, but it all relies on concepts
-that you've practiced thoroughly throughout this phase. Hopefully this template
-and guide will get you off to a good start with your Phase 4 Project.
+### app.db
 
-Happy coding!
+Database that stores information for each instance of stocks, products, and locations. Can be viewed with SQLite.
 
----
+### app.py
 
-## Resources
+Holds functions necessary to create backend routes as well as the routes themselves.
 
-- [Setting up a respository - Atlassian](https://www.atlassian.com/git/tutorials/setting-up-a-repository)
-- [Create a repo- GitHub Docs](https://docs.github.com/en/get-started/quickstart/create-a-repo)
-- [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
-- [Python Circular Imports - StackAbuse](https://stackabuse.com/python-circular-imports/)
-- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/)
+### config.py
+
+Holds imports for Flask and SQL to be used on the back-end. Also instantiates database and API.
+
+### models.py
+
+Holds relationships and validations for each model and determines attributes for each model.
+
+### seed.py
+
+This file contains functions that utilize Faker to generate instances products, locations, and inventory then uses separate functions to save these instances to the database on app.py.

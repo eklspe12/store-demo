@@ -50,7 +50,6 @@ const Store = () => {
 			.then((products) => {
 				setProducts(products);
 				setFilteredProducts(products);
-				console.log(products);
 			});
 	}, []);
 

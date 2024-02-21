@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Box, Text, css } from '@chakra-ui/react';
+import { Input, Box, Text } from '@chakra-ui/react';
 
 const ProductSearchBar = ({ onSearch }) => {
 	const [searchTerm, setSearchTerm] = useState('');

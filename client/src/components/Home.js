@@ -1,11 +1,11 @@
-import { Box, Text, Link, Flex, Button, Icon } from '@chakra-ui/react';
+import { Box, Text, Flex, Button, Icon } from '@chakra-ui/react';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import kog from '../assets/kog.png';
 const Home = () => {
 	return (
 		<Flex p={4} marginTop={'50px'} justifyContent={'center'}>
 			<Box flex="1" className="homepage" p={4} my={'auto'} maxWidth="50%">
-				<Box className="homeInfo">
+				<Box>
 					<Text>
 						Welcome to 'King of the Grill' a general store demo app. The
 						frontend was made using React, Chakra, and Formik while the backend

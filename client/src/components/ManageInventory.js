@@ -1,10 +1,7 @@
-import StockFilter from './StockFilter';
 import StockList from './StockList';
-import StockSearch from './StockSearch';
-import AddStock from './AddStock';
 import { useState, useEffect } from 'react';
 
-const LocationFinder = () => {
+const ManageInventory = () => {
 	const [searchResults, setSearchResults] = useState([]);
 	const [searchQuery, setSearchQuery] = useState('');
 	const [allStocks, setAllStocks] = useState([]);
@@ -77,15 +74,6 @@ const LocationFinder = () => {
 
 	return (
 		<div>
-			{/* <AddStock
-				products={products}
-				locations={locations}
-				onAddStock={handleAddStock}
-			/>
-			<StockSearch onSearch={handleSearch} />
-
-			<StockFilter onSelect={handleFilterSelect} /> */}
-
 			<StockList
 				searchResults={searchResults}
 				searchQuery={searchQuery}
@@ -100,4 +88,4 @@ const LocationFinder = () => {
 	);
 };
 
-export default LocationFinder;
+export default ManageInventory;

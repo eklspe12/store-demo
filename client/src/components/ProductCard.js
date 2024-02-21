@@ -75,7 +75,6 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 		})
 			.then((response) => {
 				if (response.status === 204) {
-					console.log('Product deleted successfully');
 					onDelete(product);
 				} else {
 					console.error('Error deleting product');

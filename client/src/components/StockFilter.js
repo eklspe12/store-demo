@@ -1,4 +1,4 @@
-import { Select, Box, Text } from '@chakra-ui/react';
+import { Select, Box } from '@chakra-ui/react';
 
 const StockFilter = ({ onSelect }) => {
 	const handleChange = (e) => {

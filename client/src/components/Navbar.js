@@ -1,7 +1,7 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import Store from './Store';
 import Home from './Home';
-import LocationFinder from './LocationFinder';
+import ManageInventory from './ManageInventory';
 
 const NavBar = () => {
 	return (
@@ -17,7 +17,7 @@ const NavBar = () => {
 						<Home />
 					</TabPanel>
 					<TabPanel>
-						<LocationFinder />
+						<ManageInventory />
 					</TabPanel>
 					<TabPanel>
 						<Store />
