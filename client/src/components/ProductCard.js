@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Formik, Form } from 'formik';
 import {
 	Button,
 	Input,
@@ -37,35 +36,39 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 		image: Yup.string().required('Image URL is required'),
 		price: Yup.number()
 			.typeError('Price must be a number')
-			.required('Price is required'),
+			.required('Price is required')
+			.positive('Price must be a positive number'),
 	});
 
-	const handleSubmit = (values, { setSubmitting }) => {
-		fetch(`/products/${product.id}`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(values),
-		})
-			.then((response) => {
-				if (response.status === 202) {
-					return response.json();
-				} else {
-					throw new Error('Error updating product');
-				}
-			})
-			.then((updatedProduct) => {
-				updateProduct(updatedProduct);
-				setIsFlipped(false);
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		validationSchema
+			.validate(formData, { abortEarly: false })
+			.then(() => {
+				fetch(`/products/${product.id}`, {
+					method: 'PATCH',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(formData),
+				})
+					.then((response) => {
+						if (response.status === 202) {
+							return response.json();
+						} else {
+							throw new Error('Error updating product');
+						}
+					})
+					.then((updatedProduct) => {
+						updateProduct(updatedProduct);
+						setIsFlipped(false);
+					})
+					.catch((error) => {
+						console.error('Network error:', error);
+					});
 			})
 			.catch((error) => {
-				console.error('Network error:', error);
-			})
-			.finally(() => {
-				if (typeof setSubmitting === 'function') {
-					setSubmitting(false);
-				}
+				alert(error.errors.join('\n'));
 			});
 	};
 
@@ -95,83 +98,53 @@ const ProductCard = ({ product, onDelete, updateProduct }) => {
 			width="250px"
 		>
 			{isFlipped ? (
-				<Formik
-					initialValues={{
-						name: product ? product.name : '',
-						image: product ? product.image : '',
-						description: product ? product.description : '',
-						price: product ? product.price : '',
-					}}
-					validationSchema={validationSchema}
-					onSubmit={(values, { setSubmitting }) => {
-						handleSubmit(formData, setSubmitting);
-					}}
-				>
-					{({ errors, touched }) => (
-						<Form className="productCard editForm">
-							<Text as="h3" className="editTitle">
-								Edit Product
-							</Text>
-							<FormControl>
-								<FormLabel>Name</FormLabel>
-								<Input
-									type="text"
-									name="name"
-									value={formData.name}
-									onChange={handleChange}
-								/>
-								{errors.name && touched.name && (
-									<div className="error">{errors.name}</div>
-								)}
-							</FormControl>
-							<FormControl>
-								<FormLabel>Image URL</FormLabel>
-								<Input
-									type="text"
-									name="image"
-									value={formData.image}
-									onChange={handleChange}
-								/>
-								{errors.image && touched.image && (
-									<div className="error">{errors.image}</div>
-								)}
-							</FormControl>
-							<FormControl>
-								<FormLabel>Price</FormLabel>
-								<Input
-									type="text"
-									name="price"
-									value={formData.price}
-									onChange={handleChange}
-								/>
-								{errors.price && touched.price && (
-									<div className="error">{errors.price}</div>
-								)}
-							</FormControl>
-							<FormControl>
-								<FormLabel>Description</FormLabel>
-								<Input
-									type="text"
-									name="description"
-									value={formData.description}
-									onChange={handleChange}
-								/>
-								{errors.description && touched.description && (
-									<div className="error">{errors.description}</div>
-								)}
-							</FormControl>
-							<Button className="saveBtn" type="submit">
-								Save 💾
-							</Button>
-							<Button
-								className="viewBtn"
-								onClick={() => setIsFlipped(!isFlipped)}
-							>
-								View Product 🔍
-							</Button>
-						</Form>
-					)}
-				</Formik>
+				<form onSubmit={handleSubmit} className="productCard editForm">
+					<Text as="h3" className="editTitle">
+						Edit Product
+					</Text>
+					<FormControl>
+						<FormLabel>Name</FormLabel>
+						<Input
+							type="text"
+							name="name"
+							value={formData.name}
+							onChange={handleChange}
+						/>
+					</FormControl>
+					<FormControl>
+						<FormLabel>Image URL</FormLabel>
+						<Input
+							type="text"
+							name="image"
+							value={formData.image}
+							onChange={handleChange}
+						/>
+					</FormControl>
+					<FormControl>
+						<FormLabel>Price</FormLabel>
+						<Input
+							type="text"
+							name="price"
+							value={formData.price}
+							onChange={handleChange}
+						/>
+					</FormControl>
+					<FormControl>
+						<FormLabel>Description</FormLabel>
+						<Input
+							type="text"
+							name="description"
+							value={formData.description}
+							onChange={handleChange}
+						/>
+					</FormControl>
+					<Button className="saveBtn" type="submit">
+						Save 💾
+					</Button>
+					<Button className="viewBtn" onClick={() => setIsFlipped(!isFlipped)}>
+						View Product 🔍
+					</Button>
+				</form>
 			) : (
 				<Box
 					className="productCard"
