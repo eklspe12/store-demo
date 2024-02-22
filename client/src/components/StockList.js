@@ -30,7 +30,6 @@ const StockList = ({
 	const [hoveredStockId, setHoveredStockId] = useState(null);
 	const [changedStockId, setChangedStockId] = useState(null);
 	const [quantity, setQuantity] = useState(1);
-	const [hoverStock, setHoverStock] = useState(null);
 
 	useEffect(() => {
 		const sortResults = () => {
@@ -141,7 +140,6 @@ const StockList = ({
 										key={stock.id}
 										onMouseEnter={() => {
 											setHoveredStockId(stock.id);
-											setHoverStock(stock);
 										}}
 										onMouseLeave={() => setHoveredStockId(null)}
 										backgroundColor={index % 2 === 0 ? 'lightorange' : 'white'}
