@@ -31,7 +31,6 @@ const StockList = ({
 	const [changedStockId, setChangedStockId] = useState(null);
 	const [quantity, setQuantity] = useState(1);
 	const [hoverStock, setHoverStock] = useState(null);
-	const color = 'rgb(255, 140, 50)';
 
 	useEffect(() => {
 		const sortResults = () => {
