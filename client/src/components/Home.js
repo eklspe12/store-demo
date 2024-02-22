@@ -36,7 +36,7 @@ const Home = () => {
 			<Box className="logo" display={'flex'} alignItems="center">
 				<img
 					src={kog}
-					alt="image"
+					alt="logo"
 					style={{
 						border: '15px solid rgb(255, 140, 50)',
 						borderRadius: '15px',
