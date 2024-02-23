@@ -15,7 +15,7 @@ flask-cors = "*"
 faker = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
-python-dotenv = "*"
+python-dotenv = "0.21.0"
 
 [requires]
 python_full_version = "3.8.13"
