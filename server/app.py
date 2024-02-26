@@ -9,7 +9,7 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 load_dotenv()
-from config import app, db, api
+from config import db, api
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get(
