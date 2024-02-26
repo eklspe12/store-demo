@@ -26,9 +26,9 @@ from config import app, db, api
 
 CORS(app)
 
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
-db.init_app(app)
+# db.init_app(app)
 
 api = Api(app)
 
