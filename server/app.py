@@ -26,7 +26,7 @@ app.jsonify_compatibility = False
 
 CORS(app)
 
-# migrate = Migrate(app, db)
+migrate = Migrate(app, db)
 
 db.init_app(app)
 
