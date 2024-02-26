@@ -20,15 +20,15 @@ app = Flask(
     static_url_path='',
     static_folder='../client/build',
     template_folder='../client/build')
-# app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.jsonify_compatibility = False
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.jsonify_compatibility = False
 
 CORS(app)
 
 # migrate = Migrate(app, db)
 
-# db.init_app(app)
+db.init_app(app)
 
 api = Api(app)
 
