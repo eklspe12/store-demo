@@ -8,7 +8,7 @@ from flask import Flask, make_response, jsonify, request, render_template
 from flask_cors import CORS
 from dotenv import load_dotenv
 load_dotenv()
-# from config import app, db, api
+from config import app, db, api
 import os
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
